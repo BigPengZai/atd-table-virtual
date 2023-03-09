@@ -1,7 +1,7 @@
 import { createApp, watch, ref, computed, nextTick } from "vue";
 
 export let start = ref(0);
-export let over = ref(15);
+export let over = ref(0);
 
 let estimateItemHeight = 40;
 const padding = ref([]);
@@ -18,6 +18,11 @@ const VirtualTableScroll = {
     const { dataList, itemHeight = 40 } = binding.value;
     estimateDataList = dataList;
     estimateItemHeight = itemHeight;
+
+    if (over.value == 0) {
+      over.value = start.value + tableHeight.value / estimateItemHeight;
+      console.log(over.value);
+    }
 
     let target = el.querySelector(".ant-table-body");
     // console.log(target);

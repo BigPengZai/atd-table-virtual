@@ -4,14 +4,17 @@ import App from "./App.vue";
 
 import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
-import VirtualTableScroll, { start, over } from "./virtal-table";
-
+// import VirtualTableScroll, { start, over } from "./virtal-table";
+import VirtualTablePlugin from "./plugin";
 const app = createApp(App);
 
-app.directive("virtual-table-scroll", VirtualTableScroll);
+// app.directive("virtual-table-scroll", VirtualTableScroll);
+// app.provide("dataListOptions", {
+//   start,
+//   over,
+// });
 app.use(Antd);
-app.provide("dataListOptions", {
-  start,
-  over,
-});
+
+app.use(VirtualTablePlugin);
+
 app.mount("#app");

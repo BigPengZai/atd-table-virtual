@@ -19,8 +19,10 @@
 
 <script setup>
 import { onMounted, ref, inject } from "vue";
+
 const { start, over } = inject("dataListOptions");
 console.log(start.value, over.value);
+
 let dataList = ref([]);
 const columns = [
   {
@@ -79,8 +81,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.list {
-  height: 300px;
-}
-</style>
+<style scoped></style>

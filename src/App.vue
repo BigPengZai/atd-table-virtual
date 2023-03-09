@@ -1,10 +1,9 @@
 <template>
-  <ATablePer msg="Vite + Vue" />
+  <ATablePer />
 </template>
 
 <script setup>
 import ATablePer from "./components/ATablePer.vue";
-import { Fragment } from "vue";
 </script>
 
 <style scoped></style>
