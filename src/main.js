@@ -15,6 +15,6 @@ const app = createApp(App);
 // });
 app.use(Antd);
 
-app.use(VirtualTablePlugin);
+app.use(VirtualTablePlugin, { estimateItemHeight: 40 });
 
 app.mount("#app");

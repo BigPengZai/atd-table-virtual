@@ -1,51 +1,58 @@
 import { watch, ref, computed, nextTick } from "vue";
+import throttle from "../utils/throttle";
 
 const start = ref(0);
 const over = ref(0);
 
-let estimateItemHeight = 40;
-let tableHeight = ref(300);
+let estimateItemHeight = 0;
+let tableHeight = ref(0);
 let tableScrollTop = ref(0);
 let estimateDataList = [];
 // 偏移量 startOffset，滚动后将渲染区域 偏移到可视区域中
 let startOffset = ref(0);
 
-const elTableScrollWrapperClass = ".ant-table-body";
+const aTableScrollWrapperClass = ".ant-table-body";
+const aTableTBodyClass = ".ant-table-tbody";
 
 export default {
   install: (app, options) => {
-    // wirte first  plugin
-    // console.log("fiirst  插件");
-    // 导入组件
-    //  app.component('my-banner', MyBanner);
-
+    if (options) {
+      estimateItemHeight = options.estimateItemHeight;
+    }
     // 导入指令
     app.directive("virtual-table-scroll", (el, binding, vnode, prevVnode) => {
-      const { dataList, itemHeight = 40 } = binding.value;
+      const {
+        className,
+        dataList,
+        itemHeight = 40,
+        scrollHeight = 300,
+      } = binding.value;
       estimateDataList = dataList;
       estimateItemHeight = itemHeight;
+      tableHeight.value = scrollHeight;
       //   initial  over
       if (over.value == 0) {
         over.value = start.value + tableHeight.value / estimateItemHeight;
-        // console.log(over.value);
       }
-      const target = el.querySelector(elTableScrollWrapperClass);
-      // console.log(target);
-      const tableBody = el.querySelector(".ant-table-tbody");
+      const target = el.querySelector(aTableScrollWrapperClass);
+      const tableBody = el.querySelector(aTableTBodyClass);
+      if (!target) {
+        throw new Error(`${aTableScrollWrapperClass} element not found.`);
+      }
 
-      target.addEventListener("scroll", () => {
+      //   console.log(target);
+      const scrollFn = () => {
         nextTick(() => {
           let scrollTop = target?.scrollTop || 0;
           startOffset.value = scrollTop - (scrollTop % estimateItemHeight);
           // console.log("设置y轴的偏移量", scrollTop);
           tableBody.style.transform = getTransform.value;
         });
-        // mock throttle
-        setTimeout(() => {
-          tableHeight.value = target.clientHeight;
-          tableScrollTop.value = target.scrollTop;
-        }, 200);
-      });
+        tableHeight.value = target.clientHeight;
+        tableScrollTop.value = target.scrollTop;
+      };
+      throttle(scrollFn, 150);
+      target.addEventListener("scroll", scrollFn);
     });
 
     // 偏移量对应的style
