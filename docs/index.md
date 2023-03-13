@@ -17,7 +17,7 @@ hero:
       link: /guild/introduce
     - theme: alt
       text: 在 GitHub 上查看
-      link: https://bigpengzai.github.io/a-table-virtual/
+      link: https://github.com/BigPengZai/atd-table-virtual
 
 features:
   - icon: 💡

@@ -1,5 +1,5 @@
 export default {
-  base: process.env.NODE_ENV === "production" ? "/atd-table-virtual/" : "/",
+  base: process.env.NODE_ENV === "production" ? "/ssgcmpstep1/" : "/",
   themeConfig: {
     siteTitle: "atablevirtual",
     nav: [{ text: "文档", link: "/guild/introduce" }],
@@ -43,7 +43,10 @@ export default {
       ],
     },
     socialLinks: [
-      { icon: "github", link: "https://github.com/BigPengZai/ssgcmpstep1" },
+      {
+        icon: "github",
+        link: "https://bigpengzai.github.io/ssgcmpstep1/",
+      },
     ],
   },
 };
