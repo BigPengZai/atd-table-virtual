@@ -12,7 +12,7 @@
       :data-source="dataList.slice(starty, overy)"
       bordered
       :pagination="false"
-      :scroll="{ x: 5080, y: scrollHeight }"
+      :scroll="{ x: 0, y: scrollHeight }"
     >
       <template #address="{ text }">
         <div>
@@ -44,9 +44,9 @@ const { start, over } = inject("dataListOptions");
 console.log(start.value, over.value);
 
 // mock data
-let totalRows = 8000;
+let totalRows = 800;
 
-let scrollHeight = 3000;
+let scrollHeight = 300;
 
 let dataList = ref([]);
 let dataList2 = ref([]);
@@ -97,15 +97,15 @@ let columns = [
   },
 ];
 
-for (let index = 1; index <= 20; index++) {
-  columns.push({
-    title: "address" + index,
-    dataIndex: "address",
-    slots: {
-      customRender: "address",
-    },
-  });
-}
+// for (let index = 1; index <= 20; index++) {
+//   columns.push({
+//     title: "address" + index,
+//     dataIndex: "address",
+//     slots: {
+//       customRender: "address",
+//     },
+//   });
+// }
 
 onMounted(() => {
   const now = Date.now();
@@ -130,23 +130,23 @@ onMounted(() => {
 
   /** normal ============================== */
 
-  setTimeout(() => {
-    for (let index = 1; index <= totalRows; index++) {
-      dataList2.value.push({
-        key: index + 1,
-        name: "petyon" + index,
-        money: "￥120,000.00",
-        address: "Sidney No. 1 Lake Park",
-      });
-    }
-    console.log("normal-mock fetch数据请求完成:", Date.now() - now - 200);
-    setTimeout(() => {
-      console.log(
-        `normal-table 渲染${totalRows}行时间:`,
-        Date.now() - now - 400
-      );
-    }, 0);
-  }, 400);
+  // setTimeout(() => {
+  //   for (let index = 1; index <= totalRows; index++) {
+  //     dataList2.value.push({
+  //       key: index + 1,
+  //       name: "petyon" + index,
+  //       money: "￥120,000.00",
+  //       address: "Sidney No. 1 Lake Park",
+  //     });
+  //   }
+  //   console.log("normal-mock fetch数据请求完成:", Date.now() - now - 200);
+  //   setTimeout(() => {
+  //     console.log(
+  //       `normal-table 渲染${totalRows}行时间:`,
+  //       Date.now() - now - 400
+  //     );
+  //   }, 0);
+  // }, 400);
 });
 </script>
 
