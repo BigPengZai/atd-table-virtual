@@ -9,7 +9,7 @@
         dataList,
       }"
       :columns="columns"
-      :data-source="dataList.slice(starty, overy)"
+      :data-source="dataList.slice(start, overy)"
       bordered
       :pagination="false"
       :scroll="{ x: 0, y: scrollHeight }"
@@ -44,7 +44,7 @@ const { start, over } = inject("dataListOptions");
 console.log(start.value, over.value);
 
 // mock data
-let totalRows = 800;
+let totalRows = 200;
 
 let scrollHeight = 300;
 

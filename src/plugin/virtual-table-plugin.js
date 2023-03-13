@@ -46,7 +46,7 @@ export default {
           let scrollTop = target?.scrollTop || 0;
 
           startOffset.value = scrollTop - (scrollTop % estimateItemHeight);
-          // console.log("设置y轴的偏移量", scrollTop);
+          console.log("设置y轴的偏移量:", startOffset.value);
 
           tableBody.style.transform = getTransform.value;
         });
