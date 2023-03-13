@@ -24,7 +24,7 @@ export default {
       const {
         className,
         dataList,
-        itemHeight = 40,
+        itemHeight = 75,
         scrollHeight = 300,
       } = binding.value;
       estimateDataList = dataList;
@@ -61,10 +61,13 @@ export default {
     const getTransform = computed(() => `translate(0,${startOffset.value}px)`);
 
     watch([tableHeight, tableScrollTop], () => {
-      start.value = Math.max(
-        Math.ceil(tableScrollTop.value / estimateItemHeight),
-        0
-      );
+      const startNum = tableScrollTop.value / estimateItemHeight
+      const floorStartNum = Math.floor(startNum)
+      start.value = startNum >= 5 ? Math.max(floorStartNum, 0) : floorStartNum;
+      // start.value = Math.max(
+      //   Math.ceil(tableScrollTop.value / estimateItemHeight),
+      //   0
+      // );
       over.value = Math.min(
         Math.ceil(
           (tableScrollTop.value + tableHeight.value) / estimateItemHeight
