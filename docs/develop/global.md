@@ -17,13 +17,13 @@ export {};
 
 ```
 
-> 同时在使用我们组件库的时候需要用户在`tsconfig.json`中配置`types:["easyest/lib/src/components"]`当然这里根据你的组件库命名决定
+> 
 
 ```js
 {
   "compilerOptions": {
     ...
-    "types": ["easyest/lib/src/components"]
+   
   }
 }
 ```
