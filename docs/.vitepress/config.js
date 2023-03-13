@@ -1,5 +1,5 @@
 export default {
-  base: process.env.NODE_ENV === "production" ? "/a-table-virtual/" : "/",
+  base: process.env.NODE_ENV === "production" ? "/atd-table-virtual/" : "/",
   themeConfig: {
     siteTitle: "atablevirtual",
     nav: [{ text: "文档", link: "/guild/introduce" }],
