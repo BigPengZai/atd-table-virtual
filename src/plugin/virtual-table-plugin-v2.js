@@ -1,4 +1,4 @@
-import { watch, ref, computed, nextTick } from "vue";
+import { watch, ref, computed, nextTick, onMounted } from "vue";
 import throttle from "../utils/throttle";
 
 const start = ref(0);
@@ -10,6 +10,23 @@ let tableScrollTop = ref(0);
 let estimateDataList = [];
 // 偏移量 startOffset，滚动后将渲染区域 偏移到可视区域中
 let startOffset = ref(0);
+let bufferPage = 1;
+const visibleCount = computed(() =>
+  Math.ceil(tableHeight.value / estimateItemHeight)
+);
+
+//头缓存数
+const aboveCount = computed(() =>
+  Math.min(start.value, bufferPage * visibleCount.value)
+);
+
+//尾部缓存数
+const belowCount = computed(() =>
+  Math.min(
+    estimateDataList.length - over.value,
+    bufferPage * visibleCount.value
+  )
+);
 
 const aTableScrollWrapperClass = ".ant-table-body";
 const aTableTBodyClass = ".ant-table-tbody";
@@ -50,11 +67,21 @@ export default {
 
           tableBody.style.transform = getTransform.value;
         });
+        // setTimeout(() => {
         tableHeight.value = target.clientHeight;
         tableScrollTop.value = target.scrollTop;
+        // }, 200);
       };
-      throttle(scrollFn, 150);
-      target.addEventListener("scroll", scrollFn);
+      // throttle(scrollFn, 150);
+
+      var timerScrolling = null;
+      target.addEventListener("scroll", () => {
+        clearTimeout(timerScrolling);
+        timerScrolling = setTimeout(function () {
+          // 无滚动事件触发，认为停止滚动了
+          scrollFn();
+        }, 100);
+      });
     });
 
     // 偏移量对应的style
@@ -62,21 +89,41 @@ export default {
 
     watch([tableHeight, tableScrollTop], () => {
       start.value = Math.max(
-        Math.ceil(tableScrollTop.value / estimateItemHeight),
+        Math.ceil(tableScrollTop.value / estimateItemHeight) - aboveCount.value,
         0
       );
+
       over.value = Math.min(
         Math.ceil(
           (tableScrollTop.value + tableHeight.value) / estimateItemHeight
-        ),
+        ) + belowCount.value,
         estimateDataList.length
       );
-      //   console.log("start:", start.value, "over", over.value);
+
+      console.log(
+        aboveCount.value,
+        belowCount.value,
+        "start:",
+        start.value,
+        "over",
+        over.value
+      );
     });
 
     app.provide("dataListOptions", {
       start,
       over,
     });
+
+    // onMounted(() => {
+    //   nextTick(() => {
+    //     let scrollTop = target?.scrollTop || 0;
+
+    //     startOffset.value = scrollTop - (scrollTop % estimateItemHeight);
+    //     // console.log("设置y轴的偏移量", scrollTop);
+
+    //     tableBody.style.transform = getTransform.value;
+    //   });
+    // });
   },
 };

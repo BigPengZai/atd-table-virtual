@@ -4,7 +4,7 @@
 <br />
 <div style="text-align:center">
 <b style="font-size:30px">ATableVirtual</b>
-<p>适用于a-table的虚拟滚动表格插件</p>
+<p>基于Vite4+TypeScript的Vue3组件库开发框架</p>
 <div>
   <img src="https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*zx7LTI_ECSAAAAAAAAAAAABkARQnAQ" alt="自然" />
 </div>
@@ -15,11 +15,7 @@
 ### 技术交流群
 
 
-### 官网地址
-
-[a-table-virtual]()
 
 ### 了解更多
 
 
-## 快速启动

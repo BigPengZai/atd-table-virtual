@@ -6,14 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "ant-design-vue": "^2.2.8",
-    "vue": "^3.2.45"
+    "ant-design-vue": "^2.2.8"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
-    "vite": "^4.1.0"
+    "vite": "^4.1.4",
+    "vitepress": "^1.0.0-alpha.54",
+    "vue": "^3.2.47"
   }
 }

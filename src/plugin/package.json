@@ -1,0 +1,30 @@
+{
+  "name": "atablevirtual",
+  "version": "1.0.1",
+  "main": "./lib/index.js",
+  "module": "es/index.mjs",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "keywords": [
+    "atablevirtual",
+    "a-table",
+    "virtual-list",
+    "virtual-table"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "author": "peyton",
+  "license": "MIT",
+  "description": "a-table-virtual",
+  "scripts": {
+    "release": "release-it"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BigPengZai/a-table-virtual"
+  },
+  "dependencies": {}
+}

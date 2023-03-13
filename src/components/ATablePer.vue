@@ -6,17 +6,19 @@
   <div class="mockContainer">
     <a-table
       v-virtual-table-scroll="{
-        className: 'mockContainer',
         dataList,
-        itemHeight: 40,
-        scrollHeight,
       }"
       :columns="columns"
-      :data-source="dataList.slice(start, over)"
+      :data-source="dataList.slice(starty, overy)"
       bordered
       :pagination="false"
-      :scroll="{ x: 0, y: scrollHeight }"
+      :scroll="{ x: 5080, y: scrollHeight }"
     >
+      <template #address="{ text }">
+        <div>
+          <a-input placeholder="aaaaaa" />
+        </div>
+      </template>
     </a-table>
   </div>
 
@@ -25,14 +27,14 @@
     <a-button danger>normal-table</a-button>
     <hr />
   </div>
-  <a-table
+  <!-- <a-table
     :columns="columns"
     :data-source="dataList2"
     bordered
     :pagination="false"
     :scroll="{ x: 0, y: 300 }"
   >
-  </a-table>
+  </a-table> -->
 </template>
 
 <script setup>
@@ -42,13 +44,13 @@ const { start, over } = inject("dataListOptions");
 console.log(start.value, over.value);
 
 // mock data
-let totalRows = 2000;
+let totalRows = 8000;
 
-let scrollHeight = 300;
+let scrollHeight = 3000;
 
 let dataList = ref([]);
 let dataList2 = ref([]);
-const columns = [
+let columns = [
   {
     title: "Name",
     dataIndex: "name",
@@ -59,31 +61,51 @@ const columns = [
     dataIndex: "money",
   },
   {
-    title: "Address",
-    dataIndex: "address",
+    title: "operation",
+    dataIndex: "operation",
+    slots: {
+      customRender: "operation",
+    },
   },
   {
-    title: "Address",
+    title: "address",
     dataIndex: "address",
+    slots: {
+      customRender: "address",
+    },
   },
   {
-    title: "Address",
+    title: "address",
     dataIndex: "address",
+    slots: {
+      customRender: "address",
+    },
   },
   {
-    title: "Address",
+    title: "address",
     dataIndex: "address",
+    slots: {
+      customRender: "address",
+    },
   },
   {
-    title: "Address",
+    title: "address",
     dataIndex: "address",
-  },
-
-  {
-    title: "Address",
-    dataIndex: "address",
+    slots: {
+      customRender: "address",
+    },
   },
 ];
+
+for (let index = 1; index <= 20; index++) {
+  columns.push({
+    title: "address" + index,
+    dataIndex: "address",
+    slots: {
+      customRender: "address",
+    },
+  });
+}
 
 onMounted(() => {
   const now = Date.now();
@@ -93,7 +115,8 @@ onMounted(() => {
         key: index + 1,
         name: "petyon" + index,
         money: "￥120,000.00",
-        address: "Sidney No. 1 Lake Park",
+        address: "Sidney No." + index,
+        operation: "aaaaa" + index,
       });
     }
     console.log("virtual-mock fetch数据请求完成:", Date.now() - now);
