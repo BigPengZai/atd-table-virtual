@@ -1,0 +1,30 @@
+{
+  "name": "a-table-virtual",
+  "version": "1.0.2",
+  "main": "lib/plugin/index.js",
+  "module": "es/plugin/index.mjs",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "keywords": [
+    "a-table",
+    "virtual",
+    "table-virtual",
+    "ant-design-vue"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "author": "peyton",
+  "license": "MIT",
+  "description": "基于a-table的虚拟表格",
+  "scripts": {
+    "release": "release-it"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BigPengZai/atd-table-virtual"
+  },
+  "homepage": "https://bigpengzai.github.io/ssgcmpstep1/"
+}

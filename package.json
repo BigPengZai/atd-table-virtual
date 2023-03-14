@@ -12,7 +12,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "a-table-virtual": "^1.0.1",
+    "a-table-virtual": "^1.0.2",
     "ant-design-vue": "^2.2.8"
   },
   "devDependencies": {
