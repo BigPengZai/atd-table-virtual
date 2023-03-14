@@ -1,4 +1,4 @@
-export default function throttle(fn, wait = 100) {
+export default function throttle(fn, wait = 10) {
   var timer = null;
   return function () {
     clearTimeout(timer);

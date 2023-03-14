@@ -37,6 +37,7 @@ export default {
       estimateItemHeight = options.estimateItemHeight;
     }
     // 导入指令
+    // 将函数转为对象，如果我们在自定义指令时，需要在mounted和updated中实现相同的行为，并且不关心其他钩子的情况，那么我们开可以采用简写：
     app.directive("virtual-table-scroll", (el, binding, vnode, prevVnode) => {
       const {
         className,
@@ -63,7 +64,7 @@ export default {
           let scrollTop = target?.scrollTop || 0;
 
           startOffset.value = scrollTop - (scrollTop % estimateItemHeight);
-          // console.log("设置y轴的偏移量", scrollTop);
+          // console.log("设置y轴的偏移量", startOffset.value);
 
           tableBody.style.transform = getTransform.value;
         });
@@ -80,7 +81,7 @@ export default {
         timerScrolling = setTimeout(function () {
           // 无滚动事件触发，认为停止滚动了
           scrollFn();
-        }, 100);
+        }, 10);
       });
     });
 
@@ -88,21 +89,23 @@ export default {
     const getTransform = computed(() => `translate(0,${startOffset.value}px)`);
 
     watch([tableHeight, tableScrollTop], () => {
+      // if (tableScrollTop.value > 40) {
       start.value = Math.max(
-        Math.ceil(tableScrollTop.value / estimateItemHeight) - aboveCount.value,
+        Math.ceil(tableScrollTop.value / estimateItemHeight),
         0
       );
 
       over.value = Math.min(
         Math.ceil(
           (tableScrollTop.value + tableHeight.value) / estimateItemHeight
-        ) + belowCount.value,
+        ),
         estimateDataList.length
       );
+      // }
 
       console.log(
-        aboveCount.value,
-        belowCount.value,
+        "tableScrollTop:",
+        tableScrollTop.value,
         "start:",
         start.value,
         "over",

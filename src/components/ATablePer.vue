@@ -7,9 +7,11 @@
     <a-table
       v-virtual-table-scroll="{
         dataList,
+        itemHeight: 65,
+        scrollHeight: 300,
       }"
       :columns="columns"
-      :data-source="dataList.slice(start, overy)"
+      :data-source="dataList.slice(start, over)"
       bordered
       :pagination="false"
       :scroll="{ x: 0, y: scrollHeight }"
@@ -49,6 +51,7 @@ let totalRows = 200;
 let scrollHeight = 300;
 
 let dataList = ref([]);
+
 let dataList2 = ref([]);
 let columns = [
   {
