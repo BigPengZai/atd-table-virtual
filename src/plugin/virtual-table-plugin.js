@@ -1,6 +1,6 @@
 import { watch, ref, computed, nextTick, onMounted, watchEffect } from "vue";
 import throttle from "../utils/throttle";
-
+/**************** Y轴方向滑动   **********************/
 const start = ref(0);
 const over = ref(0);
 
@@ -59,6 +59,7 @@ export default {
             let scrollTop = target?.scrollTop || 0;
             startOffset.value = scrollTop - (scrollTop % estimateItemHeight);
             // console.log("设置y轴的偏移量:", startOffset.value);
+            tableBody.style.willChange = "transform";
             tableBody.style.transform = getTransform.value;
           });
           tableHeight.value = target.clientHeight;

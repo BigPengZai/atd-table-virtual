@@ -1,8 +1,27 @@
 {
-  "name": "my-table",
-  "private": true,
-  "version": "0.0.0",
+  "name": "a-table-virtual",
+  "version": "1.0.2",
+  "main": "lib/plugin/index.js",
+  "module": "es/plugin/index.mjs",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "keywords": [
+    "a-table",
+    "virtual",
+    "table-virtual",
+    "ant-design-vue"
+  ],
   "type": "module",
+  "author": "peyton",
+  "license": "MIT",
+  "description": "基于a-table的虚拟表格",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BigPengZai/atd-table-virtual"
+  },
+  "homepage": "https://bigpengzai.github.io/ssgcmpstep1/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -17,6 +36,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
+    "release-it": "^15.8.0",
     "vite": "^4.1.4",
     "vitepress": "^1.0.0-alpha.54",
     "vue": "^3.2.47"

@@ -6,4 +6,9 @@
 import ATablePer from "./components/ATablePer.vue";
 </script>
 
-<style scoped></style>
+<style scoped>
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+</style>

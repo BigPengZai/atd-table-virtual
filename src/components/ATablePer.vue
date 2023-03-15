@@ -7,18 +7,19 @@
     <a-table
       v-virtual-table-scroll="{
         dataList,
+        columns,
         itemHeight: 65,
         scrollHeight: 300,
       }"
-      :columns="columns"
-      :data-source="dataList.slice(start, over)"
+      :columns="columns.slice(startX, overX)"
+      :data-source="dataList"
       bordered
       :pagination="false"
       :scroll="{ x: 0, y: scrollHeight }"
     >
       <template #address="{ text }">
         <div>
-          <a-input placeholder="aaaaaa" />
+          {{ text }}
         </div>
       </template>
     </a-table>
@@ -42,26 +43,29 @@
 <script setup>
 import { onMounted, ref, inject } from "vue";
 
-const { start, over } = inject("dataListOptions");
-console.log(start.value, over.value);
+// const { start, over, startX, overX } = inject("dataListOptions");
+const { startX, overX } = inject("dataListOptions");
+console.log(startX.value, overX.value);
 
 // mock data
-let totalRows = 200;
+let totalRows = 20;
 
 let scrollHeight = 300;
 
 let dataList = ref([]);
 
 let dataList2 = ref([]);
-let columns = [
+let columns = ref([
   {
     title: "Name",
     dataIndex: "name",
+    width: 133,
   },
   {
     title: "Cash Assets",
     className: "column-money",
     dataIndex: "money",
+    width: 133,
   },
   {
     title: "operation",
@@ -69,46 +73,20 @@ let columns = [
     slots: {
       customRender: "operation",
     },
+    width: 133,
   },
-  {
-    title: "address",
-    dataIndex: "address",
-    slots: {
-      customRender: "address",
-    },
-  },
-  {
-    title: "address",
-    dataIndex: "address",
-    slots: {
-      customRender: "address",
-    },
-  },
-  {
-    title: "address",
-    dataIndex: "address",
-    slots: {
-      customRender: "address",
-    },
-  },
-  {
-    title: "address",
-    dataIndex: "address",
-    slots: {
-      customRender: "address",
-    },
-  },
-];
+]);
 
-// for (let index = 1; index <= 20; index++) {
-//   columns.push({
-//     title: "address" + index,
-//     dataIndex: "address",
-//     slots: {
-//       customRender: "address",
-//     },
-//   });
-// }
+for (let index = 1; index <= 35; index++) {
+  columns.value.push({
+    title: "address" + index,
+    dataIndex: "address",
+    width: 133,
+    slots: {
+      customRender: "address",
+    },
+  });
+}
 
 onMounted(() => {
   const now = Date.now();

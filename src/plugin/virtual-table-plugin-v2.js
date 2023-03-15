@@ -1,132 +1,116 @@
-import { watch, ref, computed, nextTick, onMounted } from "vue";
+import { watch, ref, computed, nextTick, onMounted, watchEffect } from "vue";
 import throttle from "../utils/throttle";
 
-const start = ref(0);
-const over = ref(0);
+/**************** X轴方向滑动   **********************/
 
-let estimateItemHeight = 0;
-let tableHeight = ref(0);
-let tableScrollTop = ref(0);
+const startX = ref(0);
+const overX = ref(0);
+
+let estimateItemWidth = 0;
+
+// 先搞一个重复代码 feature
+let tableWidth = ref(0);
+let tableScrollLeft = ref(0);
+
 let estimateDataList = [];
 // 偏移量 startOffset，滚动后将渲染区域 偏移到可视区域中
-let startOffset = ref(0);
+let startOffsetX = ref(0);
+
 let bufferPage = 1;
-const visibleCount = computed(() =>
-  Math.ceil(tableHeight.value / estimateItemHeight)
-);
-
-//头缓存数
-const aboveCount = computed(() =>
-  Math.min(start.value, bufferPage * visibleCount.value)
-);
-
-//尾部缓存数
-const belowCount = computed(() =>
-  Math.min(
-    estimateDataList.length - over.value,
-    bufferPage * visibleCount.value
-  )
-);
 
 const aTableScrollWrapperClass = ".ant-table-body";
 const aTableTBodyClass = ".ant-table-tbody";
 
+const visibleCountX = computed(() =>
+  Math.ceil(tableWidth.value / estimateItemWidth)
+);
+
+//尾部缓存数
+const belowCount = computed(() => bufferPage * visibleCountX.value);
+
 export default {
   install: (app, options) => {
-    if (options) {
-      estimateItemHeight = options.estimateItemHeight;
-    }
     // 导入指令
-    // 将函数转为对象，如果我们在自定义指令时，需要在mounted和updated中实现相同的行为，并且不关心其他钩子的情况，那么我们开可以采用简写：
-    app.directive("virtual-table-scroll", (el, binding, vnode, prevVnode) => {
-      const {
-        className,
-        dataList,
-        itemHeight = 40,
-        scrollHeight = 300,
-      } = binding.value;
-      estimateDataList = dataList;
-      estimateItemHeight = itemHeight;
-      tableHeight.value = scrollHeight;
-      //   initial  over
-      if (over.value == 0) {
-        over.value = start.value + tableHeight.value / estimateItemHeight;
-      }
-      const target = el.querySelector(aTableScrollWrapperClass);
-      const tableBody = el.querySelector(aTableTBodyClass);
-      if (!target) {
-        throw new Error(`${aTableScrollWrapperClass} element not found.`);
-      }
+    app.directive("virtual-table-scroll", {
+      mounted(el, binding, vnode, prevVnode) {
+        const {
+          className,
+          columns,
+          itemHeight = 65,
+          scrollHeight = 300,
+        } = binding.value;
+        estimateDataList = columns;
+        estimateItemWidth = 133;
 
-      //   console.log(target);
-      const scrollFn = () => {
-        nextTick(() => {
-          let scrollTop = target?.scrollTop || 0;
+        const target = el.querySelector(aTableScrollWrapperClass);
+        const tableBody = el.querySelector(aTableTBodyClass);
 
-          startOffset.value = scrollTop - (scrollTop % estimateItemHeight);
-          // console.log("设置y轴的偏移量", startOffset.value);
+        if (!target) {
+          throw new Error(`${aTableScrollWrapperClass} element not found.`);
+        }
+        //   initial  over
+        tableWidth.value = target.clientWidth;
+        console.log(tableWidth.value);
+        if (overX.value == 0) {
+          console.log(
+            startX.value,
+            visibleCountX.value,
+            belowCount.value,
+            "visibleCount"
+          );
+          overX.value = startX.value + visibleCountX.value;
+          console.log(overX.value, 11111);
+        }
+        const scrollFn = () => {
+          nextTick(() => {
+            let scrollLeft = target?.scrollLeft || 0;
+            startOffsetX.value = scrollLeft;
 
-          tableBody.style.transform = getTransform.value;
-        });
-        // setTimeout(() => {
-        tableHeight.value = target.clientHeight;
-        tableScrollTop.value = target.scrollTop;
-        // }, 200);
-      };
-      // throttle(scrollFn, 150);
-
-      var timerScrolling = null;
-      target.addEventListener("scroll", () => {
-        clearTimeout(timerScrolling);
-        timerScrolling = setTimeout(function () {
-          // 无滚动事件触发，认为停止滚动了
-          scrollFn();
-        }, 10);
-      });
+            // console.log("设置x轴的偏移量:", scrollLeft, startOffsetX.value);
+            tableBody.style.willChange = "transform";
+            // tableBody.style.transform = getTransform.value;
+          });
+          tableWidth.value = target.clientWidth;
+          tableScrollLeft.value = target.scrollLeft;
+        };
+        target.addEventListener("scroll", scrollFn);
+      },
     });
 
-    // 偏移量对应的style
-    const getTransform = computed(() => `translate(0,${startOffset.value}px)`);
+    // 偏移量对应的style,translate3d 触发硬件加速
+    const getTransform = computed(
+      () => `translate3d(${startOffsetX.value}px,0,0)`
+    );
 
-    watch([tableHeight, tableScrollTop], () => {
-      // if (tableScrollTop.value > 40) {
-      start.value = Math.max(
-        Math.ceil(tableScrollTop.value / estimateItemHeight),
-        0
-      );
-
-      over.value = Math.min(
+    watch(tableScrollLeft, () => {
+      const startNum = tableScrollLeft.value / estimateItemWidth;
+      const floorStartNum = Math.floor(startNum);
+      console.log(floorStartNum);
+      startX.value = startNum >= 8 ? Math.max(floorStartNum, 0) : floorStartNum;
+      // startX.value = Math.min(
+      //   Math.ceil(tableScrollLeft.value / estimateItemWidth),
+      //   31
+      // );
+      overX.value = Math.min(
         Math.ceil(
-          (tableScrollTop.value + tableHeight.value) / estimateItemHeight
-        ),
+          (tableScrollLeft.value + tableWidth.value) / estimateItemWidth
+        ) + 3,
         estimateDataList.length
       );
-      // }
-
       console.log(
-        "tableScrollTop:",
-        tableScrollTop.value,
+        tableScrollLeft.value,
+        tableWidth.value,
         "start:",
-        start.value,
+        startX.value,
         "over",
-        over.value
+        overX.value,
+        estimateDataList.length
       );
     });
 
     app.provide("dataListOptions", {
-      start,
-      over,
+      startX,
+      overX,
     });
-
-    // onMounted(() => {
-    //   nextTick(() => {
-    //     let scrollTop = target?.scrollTop || 0;
-
-    //     startOffset.value = scrollTop - (scrollTop % estimateItemHeight);
-    //     // console.log("设置y轴的偏移量", scrollTop);
-
-    //     tableBody.style.transform = getTransform.value;
-    //   });
-    // });
   },
 };
