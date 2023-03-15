@@ -5,17 +5,12 @@
   <!-- VirtualTableScroll -->
   <div class="mockContainer">
     <a-table
-      v-virtual-table-scroll="{
-        dataList,
-        columns,
-        itemHeight: 65,
-        scrollHeight: 300,
-      }"
-      :columns="columns.slice(startX, overX)"
-      :data-source="dataList"
+      v-virtual-table-scroll
+      :columns="columns"
+      :data-source="dataList.slice(start, over)"
       bordered
       :pagination="false"
-      :scroll="{ x: 0, y: scrollHeight }"
+      :scroll="{ x: 1080, y: scrollHeight }"
     >
       <template #address="{ text }">
         <div>
@@ -43,12 +38,13 @@
 <script setup>
 import { onMounted, ref, inject } from "vue";
 
-// const { start, over, startX, overX } = inject("dataListOptions");
-const { startX, overX } = inject("dataListOptions");
-console.log(startX.value, overX.value);
+const { start, over } = inject("dataListOptions");
+
+console.log(start.value, over.value);
 
 // mock data
-let totalRows = 20;
+let totalRows = 500;
+let totalColumns = 49;
 
 let scrollHeight = 300;
 
@@ -61,23 +57,9 @@ let columns = ref([
     dataIndex: "name",
     width: 133,
   },
-  {
-    title: "Cash Assets",
-    className: "column-money",
-    dataIndex: "money",
-    width: 133,
-  },
-  {
-    title: "operation",
-    dataIndex: "operation",
-    slots: {
-      customRender: "operation",
-    },
-    width: 133,
-  },
 ]);
 
-for (let index = 1; index <= 35; index++) {
+for (let index = 1; index <= totalColumns; index++) {
   columns.value.push({
     title: "address" + index,
     dataIndex: "address",
@@ -103,7 +85,7 @@ onMounted(() => {
     console.log("virtual-mock fetch数据请求完成:", Date.now() - now);
     setTimeout(() => {
       console.log(
-        `virtual-table 渲染${totalRows}行时间:`,
+        `virtual-table 渲染${totalRows}行,${totalColumns + 1}列时间:`,
         Date.now() - now - 200
       );
     }, 0);
