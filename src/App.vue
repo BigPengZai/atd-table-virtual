@@ -4,6 +4,7 @@
 
 <script setup>
 import ATablePer from "./components/ATablePer.vue";
+// import ATablePer from "./components/ATablePer-exp.vue";
 </script>
 
 <style scoped>

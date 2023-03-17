@@ -1,6 +1,6 @@
 {
   "name": "a-table-virtual",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "lib/plugin/index.js",
   "module": "es/plugin/index.mjs",
   "files": [
@@ -32,7 +32,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "a-table-virtual": "^1.0.2",
+    "a-table-virtual": "^1.0.3",
     "ant-design-vue": "^2.2.8"
   },
   "devDependencies": {

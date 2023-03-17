@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import { aTableVirtualPlugin } from "./src/plugin/a-table-virtual-plugin";
 export default defineConfig({
   build: {
     //打包文件目录
@@ -39,5 +40,5 @@ export default defineConfig({
       entry: "./index.js",
     },
   },
-  plugins: [vue()],
+  plugins: [vue(), aTableVirtualPlugin()],
 });
