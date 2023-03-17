@@ -1,33 +1,42 @@
 # 快速开始
 
-- 初始化框架
+
+- 安装 
+
+```
+    npm i a-table-virtual
+```
+
+
+**注意:** 在 main.js 中导入插件
+
+```
+// 导入插件
+    import VirtualTablePlugin from "a-table-virtual";
+    app.use(VirtualTablePlugin);
 
 ```
 
-```
-
-- 安装 pnpm
+- 示例
 
 ```
-npm install pnpm -g
-```
+// 在组件中使用
+    <a-table
+      v-virtual-table-scroll
+      :columns="columns"
+      :data-source="dataList.slice(start, over)"
+      bordered
+      :pagination="false"
+      :scroll="{ x: 0, y: scrollHeight }"
+    >
+    </a-table>
 
-- 安装依赖
+    <script setup>
 
-```
-pnpm install
-```
+    import {inject } from "vue";
+    const { start, over } = inject("dataListOptions");
+    let scrollHeight = 300;
 
-- 打包示例组件库
-
-**注意:** 这里需要先执行一次打包,因为组件库文档引用了打包后的文件
-
-```
-
-```
-
-- 启动测试项目
-
-```
+    </script>
 
 ```

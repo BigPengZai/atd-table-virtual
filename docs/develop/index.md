@@ -4,15 +4,15 @@
 <br/>
 
 ```
--- packages
+-- src 项目入口
 
-
+  --plugin  插件编写入口 && 项目build入口
 
   -- components 本地开发组件库
 
 
--- play 测试开发组件库的Vue3项目目录
+-- docs ssg站点 介绍api的使用、文档说明入口
 
--- site 组件库文档站点目录
+-- 
 
 ```
