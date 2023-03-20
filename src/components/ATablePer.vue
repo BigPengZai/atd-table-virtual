@@ -19,38 +19,24 @@
       </template>
     </a-table>
   </div>
-
-  <!-- 瞎几把写 -->
-  <div class="normal-table">
-    <a-button danger>normal-table</a-button>
-    <hr />
-  </div>
-  <!-- <a-table
-    :columns="columns"
-    :data-source="dataList2"
-    bordered
-    :pagination="false"
-    :scroll="{ x: 0, y: 300 }"
-  >
-  </a-table> -->
 </template>
 
 <script setup>
 import { onMounted, ref, inject } from "vue";
 
+// 动态获取展示数据
 const { start, over } = inject("dataListOptions");
 
-console.log(start.value, over.value);
-
-// mock data
-let totalRows = 500;
-let totalColumns = 49;
-
+// 定义table的高度
 let scrollHeight = 300;
+// mock data 加载500行
+let totalRows = 500;
+// 加载 30列
+let totalColumns = 29;
 
+// init 行数据
 let dataList = ref([]);
-
-let dataList2 = ref([]);
+// init 列数据
 let columns = ref([
   {
     title: "Name",
@@ -59,18 +45,11 @@ let columns = ref([
   },
 ]);
 
-for (let index = 1; index <= totalColumns; index++) {
-  columns.value.push({
-    title: "address" + index,
-    dataIndex: "address",
-    width: 133,
-    slots: {
-      customRender: "address",
-    },
-  });
-}
+// axios mock 加载数据
+//  v-virtual-table-scroll="loadSourceData" 这里绑定的loadSourceData,会先于 该组件的onMounted 执行
+const loadSourceData = () => {
+  console.log("loadSourceData");
 
-onMounted(() => {
   const now = Date.now();
   setTimeout(() => {
     for (let index = 1; index <= totalRows; index++) {
@@ -90,26 +69,26 @@ onMounted(() => {
       );
     }, 0);
   }, 200);
+};
 
-  /** normal ============================== */
+// mock 加载列数据
+const _loadColums = () => {
+  for (let index = 1; index <= totalColumns; index++) {
+    columns.value.push({
+      title: "address" + index,
+      dataIndex: "address",
+      width: 133,
+      slots: {
+        customRender: "address",
+      },
+    });
+  }
+};
 
-  // setTimeout(() => {
-  //   for (let index = 1; index <= totalRows; index++) {
-  //     dataList2.value.push({
-  //       key: index + 1,
-  //       name: "petyon" + index,
-  //       money: "￥120,000.00",
-  //       address: "Sidney No. 1 Lake Park",
-  //     });
-  //   }
-  //   console.log("normal-mock fetch数据请求完成:", Date.now() - now - 200);
-  //   setTimeout(() => {
-  //     console.log(
-  //       `normal-table 渲染${totalRows}行时间:`,
-  //       Date.now() - now - 400
-  //     );
-  //   }, 0);
-  // }, 400);
+onMounted(() => {
+  console.log("onMounted");
+  loadSourceData();
+  _loadColums();
 });
 </script>
 

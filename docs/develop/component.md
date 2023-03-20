@@ -3,72 +3,133 @@
 <br />
 <br />
 
-组件开发写在目录`components/src`下,比如`button`组件目录如下
+组件开发写在目录`components`下,比如`ATablePer`组件目录如下
 
 ```
 -- components
-  -- src
-     -- button
-        -- style 样式文件
-        -- button.vue 组件主要逻辑
-        -- index.ts 导出组件
-     -- index.ts 导出全部组件
-  -- index.ts 组件库入口文件
+  
 
 ```
 
-button.vue 开发示例
+ATablePer.vue 开发示例
 
 ```vue
 <template>
-  <button class="ea-button" :class="buttonStyle"><slot /></button>
+  <div><span style="font-size: 27px"> antd-v:table </span></div>
+  <a-button type="primary">virtual-table</a-button>
+  <hr />
+  <!-- VirtualTableScroll -->
+  <div class="mockContainer">
+    <a-table
+      v-virtual-table-scroll
+      :columns="columns"
+      :data-source="dataList.slice(start, over)"
+      bordered
+      :pagination="false"
+      :scroll="{ x: 1080, y: scrollHeight }"
+    >
+      <template #address="{ text }">
+        <div>
+          {{ text }}
+        </div>
+      </template>
+    </a-table>
+  </div>
+
+  <!-- 瞎几把写 -->
+  <div class="normal-table">
+    <a-button danger>normal-table</a-button>
+    <hr />
+  </div>
+  <!-- <a-table
+    :columns="columns"
+    :data-source="dataList2"
+    bordered
+    :pagination="false"
+    :scroll="{ x: 0, y: 300 }"
+  >
+  </a-table> -->
 </template>
 
-<script lang="ts" setup>
-import "./style/index.less";
-import { computed } from "vue";
-//组件命名
-defineOptions({ name: "ea-button" });
-type ButtonProps = {
-  type?: string;
-  size?: string;
-};
-const buttonProps = defineProps<ButtonProps>();
+<script setup>
+import { onMounted, ref, inject } from "vue";
 
-const buttonStyle = computed(() => {
-  return { [`ea-button--${buttonProps.type}`]: buttonProps.type };
+const { start, over } = inject("dataListOptions");
+
+console.log(start.value, over.value);
+
+// mock data
+let totalRows = 500;
+let totalColumns = 49;
+
+let scrollHeight = 300;
+
+let dataList = ref([]);
+
+let dataList2 = ref([]);
+let columns = ref([
+  {
+    title: "Name",
+    dataIndex: "name",
+    width: 133,
+  },
+]);
+
+for (let index = 1; index <= totalColumns; index++) {
+  columns.value.push({
+    title: "address" + index,
+    dataIndex: "address",
+    width: 133,
+    slots: {
+      customRender: "address",
+    },
+  });
+}
+
+onMounted(() => {
+  const now = Date.now();
+  setTimeout(() => {
+    for (let index = 1; index <= totalRows; index++) {
+      dataList.value.push({
+        key: index + 1,
+        name: "petyon" + index,
+        money: "￥120,000.00",
+        address: "Sidney No." + index,
+        operation: "aaaaa" + index,
+      });
+    }
+    console.log("virtual-mock fetch数据请求完成:", Date.now() - now);
+    setTimeout(() => {
+      console.log(
+        `virtual-table 渲染${totalRows}行,${totalColumns + 1}列时间:`,
+        Date.now() - now - 200
+      );
+    }, 0);
+  }, 200);
+
+  /** normal ============================== */
+
+  // setTimeout(() => {
+  //   for (let index = 1; index <= totalRows; index++) {
+  //     dataList2.value.push({
+  //       key: index + 1,
+  //       name: "petyon" + index,
+  //       money: "￥120,000.00",
+  //       address: "Sidney No. 1 Lake Park",
+  //     });
+  //   }
+  //   console.log("normal-mock fetch数据请求完成:", Date.now() - now - 200);
+  //   setTimeout(() => {
+  //     console.log(
+  //       `normal-table 渲染${totalRows}行时间:`,
+  //       Date.now() - now - 400
+  //     );
+  //   }, 0);
+  // }, 400);
 });
 </script>
 ```
 
-导出组件示例(button/index.ts)
 
-```js
-import _Button from "./button.vue";
 
-export const Button = withInstall(_Button);
-export default Button;
-```
 
-导出全部组件(src/index.ts)
-
-```js
-export * from "./button";
-export * from "./xx";
-```
-
-组件库入口文件(components/index.ts)
-
-```js
-import * as components from "./src/index";
-export * from "./src/index";
-import { App } from "vue";
-
-export default {
-  install: (app: App) => {
-    for (let c in components) {
-      app.use(components[c]);
-    }
-  },
-};
-```

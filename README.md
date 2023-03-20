@@ -5,13 +5,14 @@
 <div style="text-align:center">
 <b style="font-size:30px">ATableVirtual</b>
 <p>适用于a-table的虚拟滚动表格插件</p>
+
 <div>
   <img src="https://gw.alipayobjects.com/mdn/rms_08e378/afts/img/A*zx7LTI_ECSAAAAAAAAAAAABkARQnAQ" alt="自然" />
 </div>
 </div>
 
-**ATableVirtual**是一个 **Vue3** 组件库开发环境框架,更加轻量级的插件,让我们能更专注于业务组件的开发。
-
+**ATableVirtual**是一个基于 **Vue3** 、**ant-design-vue**、 **a-table**组件开发,更加轻量级的插件,让我们能更专注于业务组件的开发。
+<p style="font-size:12px">tips:目前仅适用于v3版本，v2版本ing</p>
 
 ### ✨ 特性  
 - 🌈 **ATableVirtual**暂时的目标是打造一个1千行&&1千列的性能王者，如果有大量数据需要渲染，界面可能会出现抖动。
@@ -20,13 +21,14 @@
 
 ### 🤝 问题反馈
 
+  [问题反馈](https://github.com/BigPengZai/atd-table-virtual/issues)
 
-<a href="https://github.com/BigPengZai/atd-table-virtual/issues" target="_blank">问题反馈</a>
 
 
 ### 🔗 官网地址
 
-<a href="https://bigpengzai.github.io/ssgcmpstep1/" target="_blank">atd-table-virtual</a>
+  [atd-table-virtual](https://bigpengzai.github.io/ssgcmpstep1/)
+
 
 
 ###  📦 安装
@@ -72,3 +74,17 @@
 - 通过虚拟化表格组件，超大数据渲染将不再是一个头疼的问题。
 - 针对于目前 ant-design-vue 中的 [Surely Vue Table](https://www.surely.cool/doc/guide#快速开始),很遗憾，这是一个商业化组件。并不能直接使用。
 
+
+### 功能点
+
+以下是当前已经支持和正在开发中的功能，如果感兴趣可以一起~~。
+
+
+
+| 功能         | 状态 |
+| ------------ | ---- |
+| Y轴的虚拟滚动   | ✅   |
+| X轴的方向的懒加载   | ✅   |
+| X轴 && Y轴的虚拟滚动         | 🚧   |
+| V2版本的支持    | 🚧   |
+| 暴露按需加载的load方法    | 🚧   |

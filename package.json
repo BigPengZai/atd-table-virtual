@@ -1,6 +1,6 @@
 {
   "name": "a-table-virtual",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "lib/plugin/index.js",
   "module": "es/plugin/index.mjs",
   "files": [
@@ -9,10 +9,11 @@
   ],
   "keywords": [
     "ant",
-    "a-table",
     "virtual",
     "table-virtual",
-    "ant-design-vue"
+    "ant-design-vue",
+    "vue3",
+    "a-table"
   ],
   "type": "module",
   "author": "peyton",
@@ -33,13 +34,13 @@
   },
   "dependencies": {
     "a-table-virtual": "^1.0.3",
-    "ant-design-vue": "^2.2.8"
+    "ant-design-vue": "^2.x"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
     "release-it": "^15.8.0",
     "vite": "^4.1.4",
     "vitepress": "^1.0.0-alpha.54",
-    "vue": "^3.2.47"
+    "vue": "^3.x"
   }
 }

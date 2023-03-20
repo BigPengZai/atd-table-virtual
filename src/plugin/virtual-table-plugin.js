@@ -1,5 +1,6 @@
 import { watch, ref, computed, nextTick, onMounted, watchEffect } from "vue";
 import throttle from "../utils/throttle";
+
 /**************** Y轴方向滑动   **********************/
 const start = ref(0);
 const over = ref(0);
@@ -28,17 +29,21 @@ export default {
     app.directive("virtual-table-scroll", {
       mounted(el, binding, vnode, prevVnode) {
         // 可选参数 待处理
-        const { scrollHeight = 300 } = binding.value || {};
+        // const { scrollHeight = 300, load } = binding.value || {};
+        const loadSourceData = binding.value;
+        if (loadSourceData) {
+          loadSourceData();
+        }
 
         const target = el.querySelector(aTableScrollWrapperClass);
         const tableBody = el.querySelector(aTableTBodyClass);
         // console.log(target.clientHeight);
-        tableHeight.value = scrollHeight;
+        // tableHeight.value = scrollHeight;
 
         //   initial  over
         if (over.value == 0) {
           over.value = start.value + visibleCount.value + belowCount.value;
-          console.log(over.value);
+          // console.log(over.value);
         }
 
         if (!target) {

@@ -5,9 +5,9 @@
   <!-- VirtualTableScroll -->
   <div class="mockContainer">
     <a-table
-      v-virtual-table-scroll
+      v-virtual-table-scroll-auto
       :columns="columns"
-      :data-source="dataList.slice(start, over)"
+      :data-source="dataList"
       bordered
       :pagination="false"
       :scroll="{ x: 1080, y: scrollHeight }"
@@ -30,7 +30,7 @@
 <script setup>
 import { onMounted, ref, inject } from "vue";
 
-const { start, over } = inject("dataListOptions");
+// const { start, over } = inject("dataListOptions");
 
 // mock data
 let totalRows = 500;
