@@ -19,6 +19,24 @@
 - 📦 开箱即用的**a-table-virtual**组件,更加轻量级、少侵入性代码、无需改造业务代码。
 - 🎨 如果有庞大业务需求，还是建议使用商业版本的 [Surely Vue Table](https://www.surely.cool/doc/guide#快速开始)，但是很遗憾，这是一个商业化组件。并不能直接使用。
 
+### 🌈 效果
+<p>
+可以看到使用了虚拟表格的加载方式，渲染300行300列的数据大概耗时300ms，而普通加载方式约7000ms左右。
+</p>
+
+<div>
+  <img src="./src/assets/virtual&normal加载情况.gif" alt="loading" />
+</div>
+<p style="margin-top:30px">
+使用虚拟表格的滚动效果
+</p>
+<div>
+  <img src="./src/assets/virtual-table滚动效果.gif" alt="loading" />
+</div>
+
+
+
+
 ### 🤝 问题反馈
 
   [问题反馈](https://github.com/BigPengZai/atd-table-virtual/issues)
