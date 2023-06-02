@@ -1,6 +1,6 @@
 {
   "name": "a-table-virtual",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "lib/plugin/index.js",
   "module": "es/plugin/index.mjs",
   "files": [
@@ -18,7 +18,7 @@
   "type": "module",
   "author": "peyton",
   "license": "MIT",
-  "description": "基于a-table的虚拟表格",
+  "description": "是一个基于Vue3、ant-design-vue、a-table组件开发虚拟表格",
   "repository": {
     "type": "git",
     "url": "https://github.com/BigPengZai/atd-table-virtual"
@@ -33,7 +33,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "a-table-virtual": "^1.0.3",
+    "a-table-virtual": "^1.0.5",
     "ant-design-vue": "^2.x"
   },
   "devDependencies": {
