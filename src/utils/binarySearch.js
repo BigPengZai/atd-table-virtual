@@ -1,5 +1,5 @@
 // 二分查找
-export const binarySearch = (value) => {
+export const binarySearch = (positions, value) => {
   let start = 0;
   let end = Object.keys(positions).length - 1;
   let tempIndex = null;
