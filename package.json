@@ -33,14 +33,14 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "a-table-virtual": "^1.0.5",
+    "a-table-virtual": "1.0.8",
     "ant-design-vue": "^2.x"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
     "release-it": "^15.8.0",
     "vite": "^4.1.4",
-    "vitepress": "^1.0.0-alpha.54",
+    "vitepress": "^1.0.0",
     "vue": "^3.x"
   }
 }

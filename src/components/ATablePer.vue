@@ -20,7 +20,7 @@
     </a-table>
   </div>
 
-  <div class="normal-table">
+  <!-- <div class="normal-table">
     <a-button type="primary">normal-table</a-button>
     <a-table
       :columns="columns2"
@@ -35,7 +35,7 @@
         </div>
       </template>
     </a-table>
-  </div>
+  </div> -->
 </template>
 
 <script setup>
@@ -47,9 +47,9 @@ const { start, over } = inject("dataListOptions");
 // 定义table的高度
 let scrollHeight = 300;
 // mock data 加载500行
-let totalRows = 300;
+let totalRows = 100;
 // 加载 30列
-let totalColumns = 299;
+let totalColumns = 49;
 
 // init 行数据
 let dataList = ref([]);
@@ -71,9 +71,9 @@ let columns2 = ref([
   },
 ]);
 
-let totalRows2 = 300;
+let totalRows2 = 100;
 // 加载 30列
-let totalColumns2 = 299;
+let totalColumns2 = 49;
 
 let now = null;
 
@@ -122,7 +122,7 @@ onMounted(() => {
   now = Date.now();
   _loadColums();
 
-  loadSourceData2();
+  // loadSourceData2();
 });
 
 const loadSourceData2 = () => {

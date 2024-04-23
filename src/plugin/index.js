@@ -1,5 +1,5 @@
 import VirtualTablePlugin from "./virtual-table-plugin.js";
-import { ATableLazy } from "./ATableLazy.vue";
+import ATableLazy from "./ATableLazy.vue";
 
 // import VirtualTablePlugin from "./virtual-table-plugin-v2.js";
 // import VirtualTablePlugin from "./virtual-table-plugin-x-lazy";

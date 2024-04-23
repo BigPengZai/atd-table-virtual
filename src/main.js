@@ -6,7 +6,7 @@ import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 // import VirtualTableScroll, { start, over } from "./virtal-table";
 // import VirtualTablePlugin from "./plugin";
-import VirtualTablePlugin from "a-table-virtual";
+import { VirtualTablePlugin } from "a-table-virtual";
 const app = createApp(App);
 
 // app.directive("virtual-table-scroll", VirtualTableScroll);
